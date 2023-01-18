@@ -14,7 +14,7 @@ model = get_resnet(pretrained=True).to(device)
 dataloader1 = get_train_dataloader(root="data", batch_size=64)
 dataloader2 = get_test_dataloader(root='data', batch_size=64)
 # オプティマイザーの定義
-optimizer = optim.SGD(params=model.parameters(),lr=1e-2)
+optimizer = optim.Adam(params=model.parameters(),lr=1e-2)
 # 損失関数の定義
 criterion = nn.CrossEntropyLoss()
 #epoch数
@@ -48,7 +48,7 @@ def train(epochs):
     print(f"epoch: {epochs + 1}")
     print(f"train_loss: {train_loss / len(dataloader1)}")
     print(f"train_accuracy: {train_accuracy / len(dataloader1)}")
-    with open('./result/data17_train.csv', 'a') as f:
+    with open('./result/data18_train.csv', 'a') as f:
             f.write('{:<3d},{:<3f},{:<3f}\n'.format(epochs+1,train_loss / len(dataloader1),train_accuracy / len(dataloader1)))
     train_loss = train_loss / len(dataloader1)
     train_accuracy = train_accuracy / len(dataloader1)
@@ -77,7 +77,7 @@ def val(epochs):
     print(f"epoch: {epochs + 1}")
     print(f"Validation loss: {val_loss / len(dataloader2)}")
     print(f"Validation accuracy: {val_accuracy / len(dataloader2)}")
-    with open('./result/data17_val.csv', 'a') as f:
+    with open('./result/data18_val.csv', 'a') as f:
             f.write('{:<3d},{:<3f},{:<3f}\n'.format(epochs+1,val_loss / len(dataloader2),val_accuracy / len(dataloader2)))
     val_loss = val_loss / len(dataloader2)
     val_accuracy = val_accuracy / len(dataloader2)
@@ -104,7 +104,7 @@ def run():
     plt.xlabel('Predict class', fontsize=13)
     plt.ylabel('True class', fontsize=13)
     plt.title('Confusion Matrix', fontsize=18)
-    plt.savefig('./result/confusion_matrix_17.png')
+    plt.savefig('./result/confusion_matrix_18.png')
     #lossグラフ作成
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.plot(range(len(train_loss_list)), train_loss_list, c='b', label='train')
@@ -116,7 +116,7 @@ def run():
     ax.grid()
     ax.legend(fontsize='20')
     plt.show()
-    plt.savefig('./result/loss_graph_17.png')
+    plt.savefig('./result/loss_graph_18.png')
      #accuracyグラフ作成
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.plot(range(len(train_accuracy_list)), train_accuracy_list, c='b', label='train')
@@ -128,7 +128,7 @@ def run():
     ax.grid()
     ax.legend(fontsize='20')
     plt.show()
-    plt.savefig('./result/accuracy_graph_17.png')
+    plt.savefig('./result/accuracy_graph_18.png')
     #間違えた数字の可視化
     fig = plt.figure(figsize=(20,5))
     data_block = torch.cat(data_list,dim=0)
@@ -139,7 +139,7 @@ def run():
         ax.axis('off')
         ax.set_title(f'true:{true_list[idx]} pred:{preds_list[idx]}')
         ax.imshow(data_block[idx,0])
-        plt.savefig('./result/misspreddata_17')
+        plt.savefig('./result/misspreddata_18')
 
 if __name__ == "__main__":
     run()
