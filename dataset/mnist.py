@@ -26,7 +26,8 @@ def get_train_dataloader(root: str, batch_size: int=64):
 
 def get_test_dataloader(root: str, batch_size: int=64):
     transform = transforms.Compose([
-        transforms.ToTensor()
+        transforms.ToTensor(),
+        transforms.RandomRotation(degrees=90)
     ])
 
     test_dataset = MNIST(
