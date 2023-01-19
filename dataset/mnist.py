@@ -3,10 +3,9 @@ from torchvision.datasets import MNIST
 from torchvision import transforms
 
 
-def get_train_dataloader(root: str, batch_size: int=64):
+def get_train_dataloader(root: str, batch_size: int=32):
     transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.RandomRotation(degrees=180)
+        transforms.ToTensor()
     ])
 
     train_dataset = MNIST(
@@ -24,10 +23,9 @@ def get_train_dataloader(root: str, batch_size: int=64):
     )
     return train_dataloader
 
-def get_test_dataloader(root: str, batch_size: int=64):
+def get_test_dataloader(root: str, batch_size: int=32):
     transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.RandomRotation(degrees=180)
+        transforms.ToTensor()
     ])
 
     test_dataset = MNIST(
