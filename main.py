@@ -11,14 +11,14 @@ import matplotlib.pyplot as plt
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = get_resnet(pretrained=True).to(device)
 #データローダー
-dataloader1 = get_train_dataloader(root="data", batch_size=128)
-dataloader2 = get_test_dataloader(root='data', batch_size=128)
+dataloader1 = get_train_dataloader(root="data", batch_size=64)
+dataloader2 = get_test_dataloader(root='data', batch_size=64)
 # オプティマイザーの定義
-optimizer = optim.Adam(params=model.parameters(),lr=1e-2)
+optimizer = optim.SGD(params=model.parameters(),lr=1e-1)
 # 損失関数の定義
 criterion = nn.CrossEntropyLoss()
 #epoch数
-total_epoch = 20
+total_epoch = 100
 
 #学習部分の関数
 def train(epochs):
